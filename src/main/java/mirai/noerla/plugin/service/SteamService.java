@@ -21,7 +21,7 @@ public class SteamService {
         return instance;
     }
 
-    private SteamCrawler steamCrawler = SteamCrawler.getInstance();
+    private final SteamCrawler steamCrawler = SteamCrawler.getInstance();
 
     public Game getGameByInput(String inputName){
         Game game = new Game();

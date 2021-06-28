@@ -5,7 +5,7 @@ import mirai.noerla.plugin.pojo.Game;
 
 public class SteamController {
 
-    private SteamService steamService = SteamService.getInstance();
+    private final SteamService steamService = SteamService.getInstance();
 
     public Game getGameByInput(String input) {
         String inputName = input.replace(".询价 ", "");

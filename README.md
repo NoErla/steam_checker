@@ -1,5 +1,9 @@
-# mirai-console-plugin-template
+# steam_checker
 
-[Mirai Console](https://github.com/mamoe/mirai-console) 插件模板, 使用 Kotlin + Gradle.
+基于[mirai](https://github.com/mamoe/mirai)的简单的steam价格查询插件
 
-[如何使用](https://github.com/project-mirai/how-to-use-plugin-template)
+## 使用方式
+
+```xml
+。询价/.询价 [游戏名]
+```

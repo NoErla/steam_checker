@@ -8,10 +8,13 @@ import java.util.regex.Pattern;
 //TODO 更为精确的汇率转换
 public class ExchangeUtil {
 
+    private static final Double RUtoCN = 0.09;
+    private static final Double ARtoCN = 0.07;
+
     public static String RUtoCN(String money){
         if ("免费游玩".equals(money))
             return money;
-        Integer v = (int)Math.floor(Integer.parseInt(getNumber(money)) * 0.09);
+        Integer v = (int)Math.floor(Integer.parseInt(getNumber(money)) * RUtoCN);
         return String.valueOf(v);
     }
 
@@ -19,7 +22,7 @@ public class ExchangeUtil {
         if ("免费游玩".equals(money))
             return money;
         String[] prices = money.split(",");
-        Integer v = (int)Math.floor(Integer.parseInt(getNumber(prices[0])) * 0.07);//直接省略逗号后面的
+        Integer v = (int)Math.floor(Integer.parseInt(getNumber(prices[0])) * ARtoCN);//直接省略逗号后面的
         return String.valueOf(v);
     }
 
