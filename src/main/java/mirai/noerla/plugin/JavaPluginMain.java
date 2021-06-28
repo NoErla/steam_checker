@@ -70,7 +70,7 @@ public final class JavaPluginMain extends JavaPlugin {
                 sb.append("游戏名:").append(game.getName()).append("\n");
                 final Map<String, String> prices = game.getPrice();
                 //TODO 用策略模式优化
-                sb.append("国区价格(元):").append(prices.get(CHINA)).append("\n");
+                sb.append("国区价格(元):").append(prices.get(CN)).append("\n");
                 sb.append("阿区价格(元):").append(prices.get(AR)).append("\n");
                 sb.append("俄区价格(元):").append(prices.get(RU));
                 messageEvent.getSubject().sendMessage(sb.toString());

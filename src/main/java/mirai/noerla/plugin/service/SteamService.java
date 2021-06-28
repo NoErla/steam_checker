@@ -1,6 +1,7 @@
 package mirai.noerla.plugin.service;
 
 import com.alibaba.fastjson.JSONObject;
+import mirai.noerla.plugin.crawler.SteamCrawler;
 import mirai.noerla.plugin.pojo.Game;
 import mirai.noerla.plugin.utils.ExchangeUtil;
 
@@ -20,22 +21,27 @@ public class SteamService {
         return instance;
     }
 
+    private SteamCrawler steamCrawler = SteamCrawler.getInstance();
+
     public Game getGameByInput(String inputName){
         Game game = new Game();
-        String id = getIdByInput(inputName);
+        String id = steamCrawler.getIdByInput(inputName);
+
         if (id == null)
-            throw new RuntimeException("找不到游戏, 请尝试英文全名");
+            throw new RuntimeException();
 
         game.setId(id);
 
-        JSONObject gameCNJson = getJson(id, CHINA);
+        JSONObject gameCNJson = steamCrawler.getJson(id, CN);
+        JSONObject gameARJson = steamCrawler.getJson(id, AR);
+        JSONObject gameRUJson = steamCrawler.getJson(id, RU);
 
         game.setName(getName(gameCNJson, id));
 
         Map<String, String> priceMap = new LinkedHashMap<>();
-        priceMap.put(CHINA, ExchangeUtil.getNumber(getNowPrice(gameCNJson, id)));
-        priceMap.put(AR, ExchangeUtil.ARtoCN(getNowPrice(id, AR)));
-        priceMap.put(RU, ExchangeUtil.RUtoCN(getNowPrice(id, RU)));
+        priceMap.put(CN, ExchangeUtil.getNumber(getNowPrice(gameCNJson, id)));
+        priceMap.put(AR, ExchangeUtil.ARtoCN(getNowPrice(gameARJson, id)));
+        priceMap.put(RU, ExchangeUtil.RUtoCN(getNowPrice(gameRUJson, id)));
 
         game.setPrice(priceMap);
         return game;
