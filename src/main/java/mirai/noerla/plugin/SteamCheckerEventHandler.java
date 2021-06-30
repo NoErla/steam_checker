@@ -28,13 +28,12 @@ public class SteamCheckerEventHandler extends SimpleListenerHost {
     }
 
     /**
-     * 监听群消息
+     * 监听群临时会话消息
      * @param event
      * @return
      */
-    @EventHandler()
+    @EventHandler
     public ListeningStatus OnGroupTempMessageEvent(GroupTempMessageEvent event) {
-        event.getMessage().contentToString();
         replyGameInfo(event.getMessage().contentToString(), event);
         return ListeningStatus.LISTENING;
     }
@@ -44,9 +43,18 @@ public class SteamCheckerEventHandler extends SimpleListenerHost {
      * @param event
      * @return
      */
-    @EventHandler()
-    public ListeningStatus OnFriendTempMessageEvent(FriendMessageEvent event) {
-        event.getMessage().contentToString();
+    @EventHandler
+    public ListeningStatus OnFriendMessageEvent(FriendMessageEvent event) {
+        replyGameInfo(event.getMessage().contentToString(), event);
+        return ListeningStatus.LISTENING;
+    }
+    /**
+     * 监听群
+     * @param event
+     * @return
+     */
+    @EventHandler
+    public ListeningStatus OnGroupMessageEvent(GroupMessageEvent event) {
         replyGameInfo(event.getMessage().contentToString(), event);
         return ListeningStatus.LISTENING;
     }
