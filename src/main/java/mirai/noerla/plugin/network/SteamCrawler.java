@@ -1,8 +1,7 @@
-package mirai.noerla.plugin.crawler;
+package mirai.noerla.plugin.network;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import mirai.noerla.plugin.service.SteamService;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.seimicrawler.xpath.JXDocument;

@@ -21,6 +21,5 @@ dependencies{
     implementation("org.codehaus.jackson:jackson-core-asl:1.9.13")
     implementation("com.alibaba:fastjson:1.2.76")
     implementation("cn.hutool:hutool-core:5.7.2")
-    //implementation(files("libs/gson-2.8.7.jar"))
-    //implementation(files("libs/antlr4-runtime-4.7.2.jar"))
+    implementation("org.quartz-scheduler:quartz:2.3.2")
 }

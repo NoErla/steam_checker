@@ -1,7 +1,7 @@
 package mirai.noerla.plugin.service;
 
 import com.alibaba.fastjson.JSONObject;
-import mirai.noerla.plugin.crawler.SteamCrawler;
+import mirai.noerla.plugin.network.SteamCrawler;
 import mirai.noerla.plugin.pojo.Game;
 import mirai.noerla.plugin.utils.ExchangeUtil;
 

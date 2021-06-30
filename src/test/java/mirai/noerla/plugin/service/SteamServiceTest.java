@@ -1,4 +1,4 @@
-package mirai.noerla.plugin.crawler;
+package mirai.noerla.plugin.service;
 
 import mirai.noerla.plugin.service.SteamService;
 import org.junit.Test;

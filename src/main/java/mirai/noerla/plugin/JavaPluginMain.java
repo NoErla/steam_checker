@@ -2,6 +2,7 @@ package mirai.noerla.plugin;
 
 import mirai.noerla.plugin.controller.SteamController;
 import mirai.noerla.plugin.pojo.Game;
+import mirai.noerla.plugin.timer.ExchangeScheduler;
 import net.mamoe.mirai.console.plugin.jvm.JavaPlugin;
 import net.mamoe.mirai.console.plugin.jvm.JvmPluginDescription;
 import net.mamoe.mirai.console.plugin.jvm.JvmPluginDescriptionBuilder;
@@ -38,45 +39,16 @@ public final class JavaPluginMain extends JavaPlugin {
 
     private JavaPluginMain() {
         super(new JvmPluginDescriptionBuilder("mirai.noerla.plugin", "0.1.0")
-                .info("EG")
+                .author("Noerla")
+                .info("steam_checker")
                 .build());
     }
 
     @Override
     public void onEnable() {
         getLogger().info("日志");
-        EventChannel<Event> eventChannel = GlobalEventChannel.INSTANCE.parentScope(this);
-        eventChannel.subscribeAlways(GroupMessageEvent.class, g -> {
-            //监听群消息
-            //getLogger().info(g.getMessage().contentToString());
-            RunPrefix(g.getMessage().contentToString(), g);
-
-        });
-        eventChannel.subscribeAlways(FriendMessageEvent.class, f -> {
-            //监听好友消息
-            //getLogger().info(f.getMessage().contentToString());
-            RunPrefix(f.getMessage().contentToString(), f);
-        });
-    }
-
-    private void RunPrefix(String input, MessageEvent messageEvent){
-        input = input.toLowerCase().replaceAll("。", ".");
-        if(input.startsWith(".询价 ")) {
-            try{
-                SteamController steamController = new SteamController();
-                Game game = steamController.getGameByInput(input);
-
-                StringBuilder sb = new StringBuilder();
-                sb.append("游戏名:").append(game.getName()).append("\n");
-                final Map<String, String> prices = game.getPrice();
-                //TODO 用策略模式优化
-                sb.append("国区价格(元):").append(prices.get(CN)).append("\n");
-                sb.append("阿区价格(元):").append(prices.get(AR)).append("\n");
-                sb.append("俄区价格(元):").append(prices.get(RU));
-                messageEvent.getSubject().sendMessage(sb.toString());
-            } catch (Exception e){
-                messageEvent.getSubject().sendMessage("找不到游戏, 请尝试英文全名");
-            }
-        }
+        //开启定时任务
+        new ExchangeScheduler().startScheduler();
+        GlobalEventChannel.INSTANCE.registerListenerHost(new SteamCheckerEventHandler());
     }
 }
