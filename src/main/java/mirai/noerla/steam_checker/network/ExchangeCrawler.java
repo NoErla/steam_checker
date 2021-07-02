@@ -34,8 +34,10 @@ public class ExchangeCrawler {
     public void getExchangeDaily(){
         try{
             if (StrUtil.isEmpty(LoadConfig.url)){
+                JavaPluginMain.INSTANCE.getLogger().info("使用默认汇率");
                 getDefaultExchange();
             } else {
+                JavaPluginMain.INSTANCE.getLogger().info("使用第三方接口汇率");
                 Element body = Jsoup.connect(LoadConfig.url).ignoreContentType(true).get().body();
                 JSONObject json = JSON.parseObject(body.text());
                 Optional.ofNullable(json)
