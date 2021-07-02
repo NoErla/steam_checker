@@ -69,7 +69,6 @@ public class SteamCheckerEventHandler extends SimpleListenerHost {
             StringBuilder sb = new StringBuilder();
             sb.append("游戏名:").append(game.getName()).append("\n");
             final Map<String, String> prices = game.getPrice();
-            //TODO 用策略模式优化, 写成配置文件
             sb.append("国区价格(元):").append(prices.get(CN)).append("\n");
             sb.append("阿区价格(元):").append(prices.get(AR)).append("\n");
             sb.append("俄区价格(元):").append(prices.get(RU));

@@ -11,6 +11,6 @@ public class ExchangerJob implements Job {
 
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
-        exchangeCrawler.getExchange();
+        exchangeCrawler.getExchangeDaily();
     }
 }

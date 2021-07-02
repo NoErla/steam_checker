@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import mirai.noerla.steam_checker.JavaPluginMain;
 import mirai.noerla.steam_checker.config.Config;
+import mirai.noerla.steam_checker.config.LoadConfig;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 
@@ -17,14 +18,7 @@ import static mirai.noerla.steam_checker.consts.GloalConsts.*;
 
 public class ExchangeCrawler {
 
-    private String key = Config.INSTANCE.getExchangeKey();
-
-    private String suffix = "/latest/CNY";
-
-    private String prefix = "https://v6.exchangerate-api.com/v6/";
-
-
-    public Map<String, BigDecimal> exchangeMap = new HashMap<>();
+    public Map<String, BigDecimal> dailyExchange;
 
     private static ExchangeCrawler instance = new ExchangeCrawler();
 
@@ -34,19 +28,21 @@ public class ExchangeCrawler {
         return instance;
     }
 
-    public void getExchange(){
+    /**
+     * 每日更新汇率
+     */
+    public void getExchangeDaily(){
         try{
-            if (StrUtil.isEmpty(key)){
+            if (StrUtil.isEmpty(LoadConfig.url)){
                 getDefaultExchange();
             } else {
-                String url = prefix + key + suffix;
-                Element body = Jsoup.connect(url).ignoreContentType(true).get().body();
+                Element body = Jsoup.connect(LoadConfig.url).ignoreContentType(true).get().body();
                 JSONObject json = JSON.parseObject(body.text());
                 Optional.ofNullable(json)
                         .map(j -> j.getJSONObject("conversion_rates"))
                         .ifPresent(j -> {
-                            exchangeMap.put(AR, (BigDecimal) j.get("ARS"));
-                            exchangeMap.put(RU, (BigDecimal)j.get("RUB"));
+                            dailyExchange.put(AR, (BigDecimal) j.get("ARS"));
+                            dailyExchange.put(RU, (BigDecimal)j.get("RUB"));
                         });
             }
         } catch (Exception e){
@@ -56,12 +52,14 @@ public class ExchangeCrawler {
     }
 
     public void getDefaultExchange(){
-        Config.Default aDefault = Config.INSTANCE.getDefault();
-        exchangeMap.put(AR, new BigDecimal(aDefault.component1()));
-        exchangeMap.put(RU, new BigDecimal(aDefault.component2()));
+        dailyExchange = LoadConfig.defaultExchange;
     }
 
-    public Double getExchange(String country){
-        return exchangeMap.get(country).doubleValue();
+    public Double getDailyExchangeByCountry(String country){
+        if (!dailyExchange.containsKey(country)){
+            JavaPluginMain.INSTANCE.getLogger().error("无此国家：" + country);
+            throw new IllegalArgumentException();
+        }
+        return dailyExchange.get(country).doubleValue();
     }
 }

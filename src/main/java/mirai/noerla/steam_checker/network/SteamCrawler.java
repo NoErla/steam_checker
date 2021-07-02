@@ -2,6 +2,7 @@ package mirai.noerla.steam_checker.network;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import mirai.noerla.steam_checker.JavaPluginMain;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.seimicrawler.xpath.JXDocument;
@@ -29,7 +30,8 @@ public class SteamCrawler {
                     .body();
             return JSON.parseObject(body);
         } catch (Exception e) {
-            return null;
+            JavaPluginMain.INSTANCE.getLogger().error("第三方接口调用异常");
+            throw new RuntimeException();
         }
     }
 
@@ -44,7 +46,8 @@ public class SteamCrawler {
             JXNode jxn = jxd.selNOne("//div[@id='search_resultsRows']/a[1]/@data-ds-appid");
             return jxn.asString();
         } catch (Exception e){
-            return null;
+            JavaPluginMain.INSTANCE.getLogger().error("steam接口调用异常");
+            throw new RuntimeException();
         }
     }
 }

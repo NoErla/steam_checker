@@ -1,6 +1,7 @@
 package mirai.noerla.steam_checker;
 
 import mirai.noerla.steam_checker.config.Config;
+import mirai.noerla.steam_checker.config.LoadConfig;
 import mirai.noerla.steam_checker.timer.ExchangeScheduler;
 import net.mamoe.mirai.console.plugin.jvm.JavaPlugin;
 import net.mamoe.mirai.console.plugin.jvm.JvmPluginDescription;
@@ -37,10 +38,14 @@ public final class JavaPluginMain extends JavaPlugin {
     @Override
     public void onEnable() {
         getLogger().info("日志");
+        //读取配置文件
         this.reloadPluginConfig(Config.INSTANCE);
+        LoadConfig.load();
         //开启定时任务
-        GlobalEventChannel.INSTANCE.registerListenerHost(new SteamCheckerEventHandler());
         new ExchangeScheduler().startScheduler();
+        //注册handler
+        GlobalEventChannel.INSTANCE.registerListenerHost(new SteamCheckerEventHandler());
+
     }
 
 }

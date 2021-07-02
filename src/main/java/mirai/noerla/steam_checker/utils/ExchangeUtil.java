@@ -14,7 +14,7 @@ public class ExchangeUtil {
         if ("免费游玩".equals(money))
             return money;
         ExchangeCrawler exchangeCrawler = ExchangeCrawler.getInstance();
-        Integer v = (int)Math.floor(Integer.parseInt(getNumber(money)) / exchangeCrawler.getExchange(AR));
+        Integer v = (int)Math.floor(Integer.parseInt(getNumber(money)) / exchangeCrawler.getDailyExchangeByCountry(AR));
         return String.valueOf(v);
     }
 
@@ -23,7 +23,7 @@ public class ExchangeUtil {
             return money;
         String[] prices = money.split(",");
         ExchangeCrawler exchangeCrawler = ExchangeCrawler.getInstance();
-        Integer v = (int)Math.floor(Integer.parseInt(getNumber(prices[0])) / exchangeCrawler.getExchange(RU));//直接省略逗号后面的
+        Integer v = (int)Math.floor(Integer.parseInt(getNumber(prices[0])) / exchangeCrawler.getDailyExchangeByCountry(RU));//直接省略逗号后面的
         return String.valueOf(v);
     }
 
