@@ -22,4 +22,5 @@ dependencies{
     implementation("com.alibaba:fastjson:1.2.76")
     implementation("cn.hutool:hutool-core:5.7.2")
     implementation("org.quartz-scheduler:quartz:2.3.2")
+    implementation("org.yaml:snakeyaml:1.29")
 }

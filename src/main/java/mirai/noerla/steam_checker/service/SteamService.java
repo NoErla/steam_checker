@@ -1,15 +1,15 @@
-package mirai.noerla.plugin.service;
+package mirai.noerla.steam_checker.service;
 
 import com.alibaba.fastjson.JSONObject;
-import mirai.noerla.plugin.network.SteamCrawler;
-import mirai.noerla.plugin.pojo.Game;
-import mirai.noerla.plugin.utils.ExchangeUtil;
+import mirai.noerla.steam_checker.network.SteamCrawler;
+import mirai.noerla.steam_checker.pojo.Game;
+import mirai.noerla.steam_checker.utils.ExchangeUtil;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import static mirai.noerla.plugin.consts.GloalConsts.*;
-import static mirai.noerla.plugin.utils.JsonAlysisUtil.*;
+import static mirai.noerla.steam_checker.consts.GloalConsts.*;
+import static mirai.noerla.steam_checker.utils.JsonAlysisUtil.*;
 
 public class SteamService {
 

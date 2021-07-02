@@ -1,4 +1,4 @@
-package mirai.noerla.plugin.pojo;
+package mirai.noerla.steam_checker.pojo;
 
 import java.util.Map;
 

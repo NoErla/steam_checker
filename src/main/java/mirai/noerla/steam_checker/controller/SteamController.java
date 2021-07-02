@@ -1,7 +1,7 @@
-package mirai.noerla.plugin.controller;
+package mirai.noerla.steam_checker.controller;
 
-import mirai.noerla.plugin.service.SteamService;
-import mirai.noerla.plugin.pojo.Game;
+import mirai.noerla.steam_checker.service.SteamService;
+import mirai.noerla.steam_checker.pojo.Game;
 
 public class SteamController {
 

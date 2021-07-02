@@ -1,16 +1,15 @@
-package mirai.noerla.plugin;
+package mirai.noerla.steam_checker;
 
-import mirai.noerla.plugin.controller.SteamController;
-import mirai.noerla.plugin.pojo.Game;
+import mirai.noerla.steam_checker.controller.SteamController;
+import mirai.noerla.steam_checker.pojo.Game;
 import net.mamoe.mirai.event.EventHandler;
 import net.mamoe.mirai.event.ListeningStatus;
 import net.mamoe.mirai.event.SimpleListenerHost;
 import net.mamoe.mirai.event.events.*;
 
-import java.util.List;
 import java.util.Map;
 
-import static mirai.noerla.plugin.consts.GloalConsts.*;
+import static mirai.noerla.steam_checker.consts.GloalConsts.*;
 
 public class SteamCheckerEventHandler extends SimpleListenerHost {
 

@@ -1,6 +1,5 @@
-package mirai.noerla.plugin.service;
+package mirai.noerla.steam_checker.service;
 
-import mirai.noerla.plugin.service.SteamService;
 import org.junit.Test;
 
 public class SteamServiceTest {
@@ -14,6 +13,5 @@ public class SteamServiceTest {
         } catch (Exception e){
             System.out.println(e.getMessage());
         }
-
     }
 }

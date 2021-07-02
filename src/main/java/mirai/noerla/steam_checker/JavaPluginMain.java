@@ -1,21 +1,11 @@
-package mirai.noerla.plugin;
+package mirai.noerla.steam_checker;
 
-import mirai.noerla.plugin.controller.SteamController;
-import mirai.noerla.plugin.pojo.Game;
-import mirai.noerla.plugin.timer.ExchangeScheduler;
+import mirai.noerla.steam_checker.config.Config;
+import mirai.noerla.steam_checker.timer.ExchangeScheduler;
 import net.mamoe.mirai.console.plugin.jvm.JavaPlugin;
 import net.mamoe.mirai.console.plugin.jvm.JvmPluginDescription;
 import net.mamoe.mirai.console.plugin.jvm.JvmPluginDescriptionBuilder;
-import net.mamoe.mirai.event.Event;
-import net.mamoe.mirai.event.EventChannel;
 import net.mamoe.mirai.event.GlobalEventChannel;
-import net.mamoe.mirai.event.events.FriendMessageEvent;
-import net.mamoe.mirai.event.events.GroupMessageEvent;
-import net.mamoe.mirai.event.events.MessageEvent;
-
-import java.util.Map;
-
-import static mirai.noerla.plugin.consts.GloalConsts.*;
 
 
 /**
@@ -38,7 +28,7 @@ public final class JavaPluginMain extends JavaPlugin {
     public static final JavaPluginMain INSTANCE = new JavaPluginMain();
 
     private JavaPluginMain() {
-        super(new JvmPluginDescriptionBuilder("mirai.noerla.plugin", "0.1.0")
+        super(new JvmPluginDescriptionBuilder("mirai.noerla.steam_checker", "0.1.0")
                 .author("Noerla")
                 .info("steam_checker")
                 .build());
@@ -47,8 +37,10 @@ public final class JavaPluginMain extends JavaPlugin {
     @Override
     public void onEnable() {
         getLogger().info("日志");
+        this.reloadPluginConfig(Config.INSTANCE);
         //开启定时任务
-        new ExchangeScheduler().startScheduler();
         GlobalEventChannel.INSTANCE.registerListenerHost(new SteamCheckerEventHandler());
+        new ExchangeScheduler().startScheduler();
     }
+
 }

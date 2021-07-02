@@ -1,6 +1,6 @@
-package mirai.noerla.plugin.timer;
+package mirai.noerla.steam_checker.timer;
 
-import mirai.noerla.plugin.JavaPluginMain;
+import mirai.noerla.steam_checker.JavaPluginMain;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
 

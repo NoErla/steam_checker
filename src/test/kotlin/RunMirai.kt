@@ -1,6 +1,6 @@
 package org.example.mirai.plugin
 
-import mirai.noerla.plugin.JavaPluginMain
+import mirai.noerla.steam_checker.JavaPluginMain
 import net.mamoe.mirai.alsoLogin
 import net.mamoe.mirai.console.MiraiConsole
 import net.mamoe.mirai.console.plugin.PluginManager.INSTANCE.enable

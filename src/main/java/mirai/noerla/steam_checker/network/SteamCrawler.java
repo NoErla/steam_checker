@@ -1,4 +1,4 @@
-package mirai.noerla.plugin.network;
+package mirai.noerla.steam_checker.network;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -7,7 +7,7 @@ import org.jsoup.nodes.Document;
 import org.seimicrawler.xpath.JXDocument;
 import org.seimicrawler.xpath.JXNode;
 
-import static mirai.noerla.plugin.consts.GloalConsts.*;
+import static mirai.noerla.steam_checker.consts.GloalConsts.*;
 
 public class SteamCrawler {
 

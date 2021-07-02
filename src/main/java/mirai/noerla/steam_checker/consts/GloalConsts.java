@@ -1,4 +1,4 @@
-package mirai.noerla.plugin.consts;
+package mirai.noerla.steam_checker.consts;
 
 public class GloalConsts {
     public static final String SEARCH_LINK = "https://store.steampowered.com/search/?term=";

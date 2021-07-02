@@ -1,4 +1,4 @@
-package mirai.noerla.plugin.utils;
+package mirai.noerla.steam_checker.utils;
 
 
 import com.alibaba.fastjson.JSONObject;
