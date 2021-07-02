@@ -18,7 +18,7 @@ import static mirai.noerla.steam_checker.consts.GloalConsts.*;
 
 public class ExchangeCrawler {
 
-    public Map<String, BigDecimal> dailyExchange;
+    public Map<String, BigDecimal> dailyExchange = new HashMap<>();
 
     private static ExchangeCrawler instance = new ExchangeCrawler();
 
