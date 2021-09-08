@@ -20,7 +20,7 @@ dependencies{
     implementation("cn.wanghaomiao:JsoupXpath:2.4.3")
     implementation("org.codehaus.jackson:jackson-core-asl:1.9.13")
     implementation("com.alibaba:fastjson:1.2.76")
-    implementation("cn.hutool:hutool-core:5.7.2")
+    implementation("cn.hutool:hutool-core:5.7.4")
     implementation("org.quartz-scheduler:quartz:2.3.2")
     implementation("org.yaml:snakeyaml:1.29")
 }
