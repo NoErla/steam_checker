@@ -1,5 +1,6 @@
 package mirai.noerla.steam_checker;
 
+import mirai.noerla.steam_checker.consts.CountryConsts;
 import mirai.noerla.steam_checker.controller.SteamController;
 import mirai.noerla.steam_checker.pojo.Game;
 import net.mamoe.mirai.event.EventHandler;
@@ -69,9 +70,11 @@ public class SteamCheckerEventHandler extends SimpleListenerHost {
             StringBuilder sb = new StringBuilder();
             sb.append("游戏名:").append(game.getName()).append("\n");
             final Map<String, String> prices = game.getPrice();
-            sb.append("国区价格(元):").append(prices.get(CN)).append("\n");
-            sb.append("阿区价格(元):").append(prices.get(AR)).append("\n");
-            sb.append("俄区价格(元):").append(prices.get(RU));
+            sb.append("国区价格(元):").append(prices.get(CountryConsts.CN)).append("\n");
+            sb.append("港服价格(元):").append(prices.get(CountryConsts.HK)).append("\n");
+            sb.append("阿区价格(元):").append(prices.get(CountryConsts.AR)).append("\n");
+            sb.append("俄区价格(元):").append(prices.get(CountryConsts.RU)).append("\n");
+            sb.append("土区价格(元):").append(prices.get(CountryConsts.TRY));
             messageEvent.getSubject().sendMessage(sb.toString());
         } catch (Exception e){
             messageEvent.getSubject().sendMessage("找不到游戏, 请尝试英文全名");

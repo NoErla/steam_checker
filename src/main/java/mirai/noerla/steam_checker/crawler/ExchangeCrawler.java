@@ -1,11 +1,11 @@
-package mirai.noerla.steam_checker.network;
+package mirai.noerla.steam_checker.crawler;
 
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import mirai.noerla.steam_checker.JavaPluginMain;
-import mirai.noerla.steam_checker.config.Config;
 import mirai.noerla.steam_checker.config.LoadConfig;
+import mirai.noerla.steam_checker.consts.CountryConsts;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 
@@ -43,8 +43,10 @@ public class ExchangeCrawler {
                 Optional.ofNullable(json)
                         .map(j -> j.getJSONObject("conversion_rates"))
                         .ifPresent(j -> {
-                            dailyExchange.put(AR, (BigDecimal) j.get("ARS"));
-                            dailyExchange.put(RU, (BigDecimal)j.get("RUB"));
+                            dailyExchange.put(CountryConsts.AR, (BigDecimal) j.get("ARS"));
+                            dailyExchange.put(CountryConsts.RU, (BigDecimal)j.get("RUB"));
+                            dailyExchange.put(CountryConsts.HK, (BigDecimal)j.get("HKD"));
+                            dailyExchange.put(CountryConsts.TRY, (BigDecimal)j.get("TRY"));
                         });
             }
         } catch (Exception e){

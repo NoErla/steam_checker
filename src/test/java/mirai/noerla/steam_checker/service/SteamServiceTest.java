@@ -2,16 +2,17 @@ package mirai.noerla.steam_checker.service;
 
 import org.junit.Test;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class SteamServiceTest {
 
-    private SteamService steamService = SteamService.getInstance();
+
 
     @Test
     public void getGameNameById(){
-        try{
-            System.out.println(steamService.getGameByInput("dasug f sadan"));
-        } catch (Exception e){
-            System.out.println(e.getMessage());
-        }
+        Pattern pattern = Pattern.compile("^[0-9]+(.[0-9]{2})?$");
+        Matcher matcher = pattern.matcher("1999 ska");
+        System.out.println(matcher.replaceAll(""));
     }
 }

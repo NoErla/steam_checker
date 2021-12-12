@@ -1,4 +1,4 @@
-package mirai.noerla.steam_checker.network;
+package mirai.noerla.steam_checker.crawler;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -12,7 +12,7 @@ import static mirai.noerla.steam_checker.consts.GloalConsts.*;
 
 public class SteamCrawler {
 
-    private static SteamCrawler instance = new SteamCrawler();
+    private static final SteamCrawler instance = new SteamCrawler();
 
     private SteamCrawler(){}
 
@@ -37,7 +37,7 @@ public class SteamCrawler {
 
     public String getIdByInput(String inputName){
         try{
-            String url = SEARCH_LINK + inputName;
+            String url = SEARCH_LINK + inputName + "&cc=HK";
             Document document
                     = Jsoup.connect(url)
                     .header("Accept-Language", "zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2")

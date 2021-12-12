@@ -1,6 +1,6 @@
 package mirai.noerla.steam_checker.timer;
 
-import mirai.noerla.steam_checker.network.ExchangeCrawler;
+import mirai.noerla.steam_checker.crawler.ExchangeCrawler;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;

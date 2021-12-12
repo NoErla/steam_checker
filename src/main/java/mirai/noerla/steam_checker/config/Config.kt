@@ -12,12 +12,14 @@ object Config : ReadOnlyPluginConfig("Settings") {
         """)
     val exchangeKey by value("")
 
-    @ValueDescription("key为空时采取的汇率，RU=俄罗斯，AR=阿根廷")
+    @ValueDescription("key为空时采取的汇率，HK=香港，RU=俄罗斯，AR=阿根廷,TRY=土耳其")
     val default by value(Default())
 
     @Serializable
     data class Default(
+        val HK: Double = 1.2,
         val AR: Double = 14.0,
-        val RU: Double = 11.0
+        val RU: Double = 11.0,
+        val TRY: Double = 2.2
     )
 }

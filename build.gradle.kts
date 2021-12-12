@@ -1,13 +1,12 @@
 plugins {
-    val kotlinVersion = "1.4.30"
+    val kotlinVersion = "1.5.10"
     kotlin("jvm") version kotlinVersion
     kotlin("plugin.serialization") version kotlinVersion
-
-    id("net.mamoe.mirai-console") version "2.6.6"
+    id("net.mamoe.mirai-console") version "2.7-M2"
 }
 
 group = "org.example"
-version = "0.1.0"
+version = "0.2.0"
 
 repositories {
     mavenLocal()
@@ -22,5 +21,4 @@ dependencies{
     implementation("com.alibaba:fastjson:1.2.76")
     implementation("cn.hutool:hutool-core:5.7.4")
     implementation("org.quartz-scheduler:quartz:2.3.2")
-    implementation("org.yaml:snakeyaml:1.29")
 }
