@@ -23,7 +23,7 @@ public class SteamCrawler {
     public JSONObject getJson(String id, String country) {
         try {
             String url = INFO_LINK + id + FIX + country;
-            String body = Jsoup.connect(url)
+            String body = SSLHelper.getConnection(url)
                     .ignoreContentType(true)
                     .header("Content-Type", "application/json")
                     .execute()
@@ -38,15 +38,12 @@ public class SteamCrawler {
     public String getIdByInput(String inputName){
         try{
             String url = SEARCH_LINK + inputName + "&cc=HK";
-            Document document
-                    = Jsoup.connect(url)
-                    .header("Accept-Language", "zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2")
-                    .get();
+            Document document = SSLHelper.getConnection(url).get();
             JXDocument jxd = JXDocument.create(document);
             JXNode jxn = jxd.selNOne("//div[@id='search_resultsRows']/a[1]/@data-ds-appid");
             return jxn.asString();
         } catch (Exception e){
-            JavaPluginMain.INSTANCE.getLogger().error("steam接口调用异常");
+            JavaPluginMain.INSTANCE.getLogger().error(e.getMessage());
             throw new RuntimeException();
         }
     }
