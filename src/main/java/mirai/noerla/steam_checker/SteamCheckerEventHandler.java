@@ -74,7 +74,8 @@ public class SteamCheckerEventHandler extends SimpleListenerHost {
             sb.append("港服价格(元):").append(prices.get(CountryConsts.HK)).append("\n");
             sb.append("阿区价格(元):").append(prices.get(CountryConsts.AR)).append("\n");
             sb.append("俄区价格(元):").append(prices.get(CountryConsts.RU)).append("\n");
-            sb.append("土区价格(元):").append(prices.get(CountryConsts.TRY));
+            sb.append("土区价格(元):").append(prices.get(CountryConsts.TRY)).append("\n");
+            sb.append("国区史低:").append(game.getLowestPrice());
             messageEvent.getSubject().sendMessage(sb.toString());
         } catch (Exception e){
             messageEvent.getSubject().sendMessage("找不到游戏, 请尝试英文全名");

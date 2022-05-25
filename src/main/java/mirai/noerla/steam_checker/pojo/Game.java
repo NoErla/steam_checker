@@ -20,12 +20,22 @@ public class Game {
 
     private Map<String, String> price;
 
+    /**
+     * success:货币符号+价格
+     * fail:查询失败
+     */
+    private String lowestPrice;
+
     public String getName() {
         return name;
     }
 
     public Map<String, String> getPrice() {
         return price;
+    }
+
+    public String getLowestPrice() {
+        return lowestPrice;
     }
 
     public Game(String inputName) {
@@ -49,5 +59,7 @@ public class Game {
         priceMap.put(CountryConsts.RU, ExchangeUtil.toCN(CountryConsts.RU, getNowPrice(gameRUJson, id)));
         priceMap.put(CountryConsts.TRY, ExchangeUtil.toCN(CountryConsts.TRY, getNowPrice(gameTRYJson, id)));
         this.price = priceMap;
+
+        this.lowestPrice = steamCrawler.getLowest(this.id);
     }
 }
