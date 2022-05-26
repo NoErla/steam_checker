@@ -20,6 +20,6 @@ object Config : ReadOnlyPluginConfig("Settings") {
         val HK: Double = 1.2,
         val AR: Double = 14.0,
         val RU: Double = 11.0,
-        val TRY: Double = 2.2
+        val TRY: Double = 2.4
     )
 }

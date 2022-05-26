@@ -1,5 +1,7 @@
 package mirai.noerla.steam_checker;
 
+import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.date.TimeInterval;
 import mirai.noerla.steam_checker.consts.CountryConsts;
 import mirai.noerla.steam_checker.controller.SteamController;
 import mirai.noerla.steam_checker.pojo.Game;
@@ -64,6 +66,9 @@ public class SteamCheckerEventHandler extends SimpleListenerHost {
         if(!input.startsWith(".询价 "))
             return;
         try{
+            //计时器
+            final TimeInterval timer = DateUtil.timer();
+            timer.start();
             SteamController steamController = new SteamController();
             Game game = steamController.getGameByInput(input);
 
@@ -75,7 +80,8 @@ public class SteamCheckerEventHandler extends SimpleListenerHost {
             sb.append("阿区价格(元):").append(prices.get(CountryConsts.AR)).append("\n");
             sb.append("俄区价格(元):").append(prices.get(CountryConsts.RU)).append("\n");
             sb.append("土区价格(元):").append(prices.get(CountryConsts.TRY)).append("\n");
-            sb.append("国区史低:").append(game.getLowestPrice());
+            sb.append("国区史低:").append(game.getLowestPrice()).append("\n");
+            sb.append("查询耗时:").append(timer.intervalMs());
             messageEvent.getSubject().sendMessage(sb.toString());
         } catch (Exception e){
             messageEvent.getSubject().sendMessage("找不到游戏, 请尝试英文全名");

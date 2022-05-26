@@ -4,12 +4,11 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import mirai.noerla.steam_checker.JavaPluginMain;
-import org.jsoup.nodes.Document;
-import org.seimicrawler.xpath.JXDocument;
-import org.seimicrawler.xpath.JXNode;
+import mirai.noerla.steam_checker.consts.GloalConsts;
+import mirai.noerla.steam_checker.pojo.GameInfo;
+import mirai.noerla.steam_checker.utils.JsonAlysisUtil;
 
 import java.util.Optional;
-import java.util.stream.IntStream;
 
 import static mirai.noerla.steam_checker.consts.GloalConsts.*;
 
@@ -23,7 +22,7 @@ public class SteamCrawler {
         return instance;
     }
 
-    public JSONObject getJson(String id, String country) {
+    public String getPrice(String id, String country) {
         try {
             String url = INFO_LINK + id + FIX + country;
             String body = SSLHelper.getConnection(url)
@@ -31,14 +30,15 @@ public class SteamCrawler {
                     .header("Content-Type", "application/json")
                     .execute()
                     .body();
-            return JSON.parseObject(body);
+            final JSONObject data = JSON.parseObject(body);
+            return JsonAlysisUtil.getNowPrice(data, id);
         } catch (Exception e) {
-            JavaPluginMain.INSTANCE.getLogger().error("第三方价格查询接口调用异常");
-            throw new RuntimeException();
+            JavaPluginMain.INSTANCE.getLogger().error("第三方价格查询接口调用异常:"+id+","+country+","+e.getMessage());
+            return PRICE_NOT_FOUND;
         }
     }
 
-    public String getIdByInput(String inputName){
+    public GameInfo getInfoByInputName(String inputName){
         try{
             String url = SEARCH_ID + inputName;
             String body = SSLHelper.getConnection(url)
@@ -48,16 +48,23 @@ public class SteamCrawler {
                     .body();
             final JSONObject data = JSON.parseObject(body);
             final JSONArray games = data.getJSONObject("result").getJSONArray("items");
+            //寻找第一个类型为游戏的信息
             for (int i=0,len=games.size();i<len;i++){
                 final JSONObject game = games.getJSONObject(i);
                 if (!"game".equals(game.get("type"))){
                     continue;
                 }
-                return game.getJSONObject("info").get("steam_appid").toString();
+                GameInfo result = new GameInfo();
+                result.setId(game.getJSONObject("info").get("steam_appid").toString());
+                result.setName(game.getJSONObject("info").getString("name"));
+                result.setCurrentPrice(game.getJSONObject("info").getJSONObject("price").getString("current"));
+                final String lowestPrice = Optional.ofNullable(game.getJSONObject("info").getJSONObject("price").getString("lowest_price_raw")).orElse("无");
+                result.setLowestPrice(lowestPrice);
+                return result;
             }
             throw  new RuntimeException("未找到游戏");
         } catch (Exception e){
-            JavaPluginMain.INSTANCE.getLogger().error(e.getMessage());
+            JavaPluginMain.INSTANCE.getLogger().error("游戏名{"+inputName+"}查询异常："+e.getMessage());
             throw new RuntimeException();
         }
     }
@@ -75,8 +82,8 @@ public class SteamCrawler {
             if (price == null) return "无";
             return price.toString();
         } catch (Exception e){
-            JavaPluginMain.INSTANCE.getLogger().error(e.getMessage());
-            throw new RuntimeException();
+            JavaPluginMain.INSTANCE.getLogger().error("史低查询异常"+e.getMessage());
+            return PRICE_NOT_FOUND;
         }
     }
 }

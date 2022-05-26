@@ -29,7 +29,7 @@ public final class JavaPluginMain extends JavaPlugin {
     public static final JavaPluginMain INSTANCE = new JavaPluginMain();
 
     private JavaPluginMain() {
-        super(new JvmPluginDescriptionBuilder("mirai.noerla.steam_checker", "0.2.0")
+        super(new JvmPluginDescriptionBuilder("mirai.noerla.steam_checker", "0.3.0")
                 .author("Noerla")
                 .info("steam_checker")
                 .build());
