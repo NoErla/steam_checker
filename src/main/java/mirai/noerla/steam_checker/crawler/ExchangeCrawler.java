@@ -14,56 +14,49 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-import static mirai.noerla.steam_checker.consts.GloalConsts.*;
+public enum ExchangeCrawler {
 
-public class ExchangeCrawler {
+    INSTANCE;
 
-    public Map<String, BigDecimal> dailyExchange = new HashMap<>();
-
-    private static ExchangeCrawler instance = new ExchangeCrawler();
-
-    private ExchangeCrawler(){}
-
-    public static ExchangeCrawler getInstance(){
-        return instance;
-    }
+    private Map<String, BigDecimal> todayExchange = new HashMap<>();
 
     /**
-     * 每日更新汇率
+     * 更新汇率
      */
-    public void getExchangeDaily(){
+    public void updateExchange(){
         try{
             if (StrUtil.isEmpty(LoadConfig.url)){
                 JavaPluginMain.INSTANCE.getLogger().info("使用默认汇率");
-                getDefaultExchange();
+                todayExchange = LoadConfig.defaultExchange;
             } else {
-                JavaPluginMain.INSTANCE.getLogger().info("使用第三方接口汇率");
+                JavaPluginMain.INSTANCE.getLogger().info("使用第三方汇率接口");
                 Element body = Jsoup.connect(LoadConfig.url).ignoreContentType(true).get().body();
-                JSONObject json = JSON.parseObject(body.text());
-                Optional.ofNullable(json)
+                JSONObject data = JSON.parseObject(body.text());
+                Optional.ofNullable(data)
                         .map(j -> j.getJSONObject("conversion_rates"))
                         .ifPresent(j -> {
-                            dailyExchange.put(CountryConsts.AR, (BigDecimal) j.get("ARS"));
-                            dailyExchange.put(CountryConsts.RU, (BigDecimal)j.get("RUB"));
-                            dailyExchange.put(CountryConsts.HK, (BigDecimal)j.get("HKD"));
-                            dailyExchange.put(CountryConsts.TRY, (BigDecimal)j.get("TRY"));
+                            todayExchange.put(CountryConsts.AR, (BigDecimal) j.get("ARS"));
+                            todayExchange.put(CountryConsts.RU, (BigDecimal)j.get("RUB"));
+                            todayExchange.put(CountryConsts.HK, (BigDecimal)j.get("HKD"));
+                            todayExchange.put(CountryConsts.TRY, (BigDecimal)j.get("TRY"));
                         });
             }
         } catch (Exception e){
             JavaPluginMain.INSTANCE.getLogger().error("汇率查询出错，使用默认汇率");
-            getDefaultExchange();
+            todayExchange = LoadConfig.defaultExchange;
         }
     }
 
-    public void getDefaultExchange(){
-        dailyExchange = LoadConfig.defaultExchange;
-    }
-
-    public Double getDailyExchangeByCountry(String country){
-        if (!dailyExchange.containsKey(country)){
+    /**
+     * 获取货币对RMB的当前汇率
+     * @param country
+     * @return
+     */
+    public Double getTodayExchangeByCountry(String country){
+        if (!todayExchange.containsKey(country)){
             JavaPluginMain.INSTANCE.getLogger().error("无此国家：" + country);
             throw new IllegalArgumentException();
         }
-        return dailyExchange.get(country).doubleValue();
+        return todayExchange.get(country).doubleValue();
     }
 }

@@ -1,5 +1,9 @@
 package mirai.noerla.steam_checker.consts;
 
+/**
+ * 国家代码
+ * todo 后期考虑从配置文件读取
+ */
 public class CountryConsts {
     public static final String CN = "CN";
     public static final String HK = "HK";//香港

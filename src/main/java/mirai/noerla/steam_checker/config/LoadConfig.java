@@ -13,6 +13,7 @@ public class LoadConfig {
 
     public static Map<String, BigDecimal> defaultExchange = new HashMap<>();
 
+    private LoadConfig(){}
 
     public static void load(){
         String key = Config.INSTANCE.getExchangeKey();

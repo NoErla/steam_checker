@@ -7,10 +7,10 @@ import org.quartz.JobExecutionException;
 
 public class ExchangerJob implements Job {
 
-    ExchangeCrawler exchangeCrawler = ExchangeCrawler.getInstance();
+    ExchangeCrawler exchangeCrawler = ExchangeCrawler.INSTANCE;
 
     @Override
-    public void execute(JobExecutionContext context) throws JobExecutionException {
-        exchangeCrawler.getExchangeDaily();
+    public void execute(JobExecutionContext context) {
+        exchangeCrawler.updateExchange();
     }
 }

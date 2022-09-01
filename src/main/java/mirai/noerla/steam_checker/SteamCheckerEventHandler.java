@@ -12,22 +12,7 @@ import net.mamoe.mirai.event.events.*;
 
 import java.util.Map;
 
-import static mirai.noerla.steam_checker.consts.GloalConsts.*;
-
 public class SteamCheckerEventHandler extends SimpleListenerHost {
-
-    @EventHandler
-    public ListeningStatus onBotGroupRequest(BotInvitedJoinGroupRequestEvent event) {
-        //收到邀请自动加入
-        event.accept();
-        return ListeningStatus.LISTENING;
-    }
-
-    @EventHandler
-    public ListeningStatus onFriendRequest(NewFriendRequestEvent event) {
-        event.accept();
-        return ListeningStatus.LISTENING;
-    }
 
     /**
      * 监听群临时会话消息

@@ -12,15 +12,9 @@ import java.util.Optional;
 
 import static mirai.noerla.steam_checker.consts.GloalConsts.*;
 
-public class SteamCrawler {
+public enum SteamCrawler {
 
-    private static final SteamCrawler instance = new SteamCrawler();
-
-    private SteamCrawler(){}
-
-    public static SteamCrawler getInstance(){
-        return instance;
-    }
+    INSTANCE;
 
     public String getPrice(String id, String country) {
         try {
